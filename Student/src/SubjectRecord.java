@@ -1,5 +1,3 @@
-
-
 public class SubjectRecord {
 	String ID; // Can't use  privated variable in insert() of class trees ? 
 	String name;

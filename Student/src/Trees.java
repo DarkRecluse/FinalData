@@ -1,4 +1,5 @@
 
+
 public class Trees {
 	private SubjectRecord root;
 	public SubjectRecord find(String key) {
@@ -16,6 +17,9 @@ public class Trees {
 	public void insert(String id,String name1,String unit1,String grade1) {
 		SubjectRecord newSubjectRecord = new SubjectRecord(); // make new node
 		newSubjectRecord.ID = id; // insert data
+		newSubjectRecord.name = name1;
+		newSubjectRecord.unit = unit1;
+		newSubjectRecord.grade = grade1;
 		
 		if(root == null ) // no node in root
 			root = newSubjectRecord;
@@ -24,7 +28,7 @@ public class Trees {
 			SubjectRecord parent;
 			while(true) {   // (exits internally)
 				parent = current;
-				if(root != null) { //go left?
+				if(id.compareTo(newSubjectRecord.ID) < 0) { //go left?
 					current = current.leftchild; 
 					if(current == null) { // if end of the line,insert on left
 						parent.leftchild = newSubjectRecord;
@@ -40,26 +44,31 @@ public class Trees {
 				} // end else go right
 			}// end while
 		}// end else not root
-		System.out.println("Name : " + name1);
-		System.out.println("ID : " + id);
-		System.out.println("Unit : " + unit1);
-		System.out.println("Grade : " + grade1);
+		
 	}// end insert()
-	private void inOrder(SubjectRecord localRoot) {
-		if(localRoot == null) {
+	public void inOrder(SubjectRecord localRoot) {
+		;
+		if(localRoot !=null) {
 			inOrder(localRoot.leftchild);
-			System.out.println(localRoot.leftchild + " ");
-			inOrder(localRoot.rightchild);
-		}
+			
+			
+		System.out.println("================================");
+		System.out.println("Name :" + localRoot.name);
+		System.out.println("ID " + localRoot.ID);
+		System.out.println("ID " + localRoot.unit);
+		System.out.println("ID " + localRoot.grade);
+		System.out.println("================================");
+		inOrder(localRoot.rightchild);
+	}
 	}
 	public SubjectRecord minimum() {
-		SubjectRecord current,last;
+		SubjectRecord current,last = null;
 		current = root;
 		while(current != null) {
 		last = current;
 				current = current.leftchild;
 		}
-		return current; // mistake if last
+		return last; // mistake if last
 	}
 	private SubjectRecord getSuccessor(SubjectRecord delNode) {
 		SubjectRecord successorParent = delNode;
@@ -78,7 +87,7 @@ public class Trees {
 		
 	}
 	
-	public boolean delete(String key) {// delete node with given key
+	public boolean delete(String  key) {// delete node with given key
 		                             // (assumes non-empty list
 		SubjectRecord current = root;
 		SubjectRecord parent = root;
@@ -137,5 +146,12 @@ public class Trees {
 	}
 	return true;
 }
+	
+	public SubjectRecord getRoot() {
+		return root;
+	}
+	public void setRoot(SubjectRecord root) {
+		this.root = root;
+	}
 	
 }
